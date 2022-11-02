@@ -9,8 +9,8 @@ import { expect, test} from '@jest/globals'
 // Run the server (taken care of for us by Supertest)
 // Write a test
 
-//describe ('user request', () => {
-  test('responds to get request with users object', async() => {
+//3. Write an asynchronous test (in `routes/users.test.js`) which Sends a `GET /users` request 
+test('responds to get request with users object', async() => {
 
   const response = await supertest(app).get("/users");
    //.set('Accept', 'application/json')
@@ -31,10 +31,11 @@ import { expect, test} from '@jest/globals'
     
     })
    }
-  })
-   // test route for "GET /users/4" request
+})
 
-   test('responds to specific get with specific user', async() => {
+// 4. Write an asynchronous test (in `routes/users.test.js`) Sends a `GET /users/4` request  :
+
+test('responds to specific get with specific user', async() => {
    
     const response = await supertest(app).get("/users/4");
     const userObj = response.body.payload
@@ -43,17 +44,17 @@ import { expect, test} from '@jest/globals'
      expect(userObj).toStrictEqual({
       id: 4,
       username: expect.any(String)
-    
-    });
+     });
+});
 
-  });
+//5. Write an asynchronous test (in `routes/users.test.js`) which Sends a `GET /users/99` request 
 
-// Send a request to the server
-//    URL must be correct
-//    Include any data in the request (if necessary)
-// Check response status code
-//    Is the status code as expected?
-// Check response body
-//    Does it contain the expected data?
-// Check the outer most level of the response object
-//    If there's an array, visit each it
+test('respondes to a non-existing user', async () => {
+  const response = await supertest(app).get('/users/99');
+  const userObj = response.body;
+  expect(response.status).toBe(404);
+  expect(userObj).toStrictEqual({
+    success: false,
+    reason: "No user with ID 99 was found." 
+  })
+})
