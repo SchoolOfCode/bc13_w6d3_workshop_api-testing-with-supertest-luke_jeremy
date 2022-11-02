@@ -20,8 +20,34 @@ import { expect, test} from '@jest/globals'
     success: true,
     payload: expect.any(Array),
    });
+   
+   
+   for(let i = 0; i<response.body.payload.length; i++) {
+    const userObj = response.body.payload[i];
+
+    expect(userObj).toStrictEqual({
+      id: expect.any(Number),
+      username: expect.any(String)
+    
+    })
+   }
+  })
+   // test route for "GET /users/4" request
+
+   test('responds to get request with users object', async() => {
+   
+    const response = await supertest(app).get("/users/4");
+    const userObj = response.body.payload
+     expect(response.status).toBe(200);
+
+     expect(userObj).toStrictEqual({
+      id: expect.any(Number),
+      username: expect.any(String)
+    
+    });
+
   });
-//} )
+
 // Send a request to the server
 //    URL must be correct
 //    Include any data in the request (if necessary)
