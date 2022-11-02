@@ -1,7 +1,7 @@
 /**
  * For simplicity we're temporarily back to using an in-memory array (rather than an actual database).
  */
-const users = [
+export const users = [
   { id: 0, username: "Agatha" },
   { id: 1, username: "Barbara" },
   { id: 2, username: "Chase" },
