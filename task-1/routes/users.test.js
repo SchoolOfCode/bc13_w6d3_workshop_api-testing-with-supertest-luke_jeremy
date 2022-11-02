@@ -34,14 +34,14 @@ import { expect, test} from '@jest/globals'
   })
    // test route for "GET /users/4" request
 
-   test('responds to get request with users object', async() => {
+   test('responds to specific get with specific user', async() => {
    
     const response = await supertest(app).get("/users/4");
     const userObj = response.body.payload
      expect(response.status).toBe(200);
 
      expect(userObj).toStrictEqual({
-      id: expect.any(Number),
+      id: 4,
       username: expect.any(String)
     
     });
