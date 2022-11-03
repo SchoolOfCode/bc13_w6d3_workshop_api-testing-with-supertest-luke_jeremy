@@ -1,7 +1,12 @@
 import supertest from 'supertest';
 import app from '../app.js';
 import { expect, test} from '@jest/globals';
+import { resetUsersTable } from "../db/helpers.js";
 
+// reset user-table before each test
+beforeEach(() => {
+    return resetUsersTable();
+  });
 
 //check get request for all users
 test('responds to get request for all users', async() => {
