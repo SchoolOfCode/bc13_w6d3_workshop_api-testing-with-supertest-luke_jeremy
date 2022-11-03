@@ -40,7 +40,6 @@ test('get request for a user using a non-existing username', async() => {
     const response = await supertest(app).get('/users?username=jackma')
     expect(response.status).toBe(200);
     expect(response.body.success).toBeFalsy;
-    // expect(response.body.payload[0].username).toMatch('Jeremy');
     expect(typeof response.body.payload).toBeUndefined;
 })
 
@@ -75,3 +74,19 @@ test('post user request', async() => {
     expect(typeof response.body.payload.id).toBe('number');
     expect(response.body.payload.id).toBeGreaterThan(200);//because id is increated by 1 with each user added, total num of existing users = 200
     })
+
+// check delete user request
+test(`DELETE /users/:id`, async() => {
+    const idToDelete = 15
+    const url = `/users/${idToDelete}`
+    const response = await supertest(app).del(url)
+
+    expect(response.status).toBe(200)
+    expect(response.body).toStrictEqual({
+        success: true,
+        payload: {
+            id: idToDelete,
+            username: expect.any(String)
+        }
+    })
+})

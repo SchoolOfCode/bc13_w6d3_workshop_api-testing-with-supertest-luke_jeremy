@@ -11,8 +11,7 @@ import { expect, test} from '@jest/globals'
 
 //3. Write an asynchronous test (in `routes/users.test.js`) which Sends a `GET /users` request 
 test('responds to get request with users object', async() => {
-
-  const response = await supertest(app).get("/users");
+  
    //.set('Accept', 'application/json')
    // expect(response.headers["Content-Type"]).toMatch(/json/);
    expect(response.status).toBe(200);
