@@ -59,3 +59,19 @@ test('get request for a user using an invalid id', async() => {
     expect(response.body.reason).toMatch("No user with that ID 525 was found!");
     }) 
 
+//check post user reqest
+test('post user request', async() => {
+    const payload = {username: 'John'};
+   
+    const response = await supertest(app)
+    .post('/users')
+    .send(payload)
+    .set('Accept', 'application/json')
+    
+    // expect(response.headers["Content-Type"]).toMatch("json");
+    expect(response.status).toBe(201);
+    expect(response.body.success).toBeTruthy;
+    expect(response.body.payload.username).toMatch("John");
+    expect(typeof response.body.payload.id).toBe('number');
+    expect(response.body.payload.id).toBeGreaterThan(200);//because id is increated by 1 with each user added, total num of existing users = 200
+    })
